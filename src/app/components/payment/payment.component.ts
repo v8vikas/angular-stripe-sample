@@ -8,19 +8,23 @@ import { PaymentWidgetComponent } from '../../modals/payment-widget/payment-widg
   styleUrls: ['./payment.component.css']
 })
 export class PaymentComponent implements OnInit {
-
+  public token;
+  public inProgress: boolean = false;
   constructor(private dialog: MatDialog) { }
 
   ngOnInit() {
   }
 
   openPaymentDialog(): void {
+    this.token = null;
+    this.inProgress = true;
     let dialogRef = this.dialog.open(PaymentWidgetComponent, {
       width: '550px',
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      this.inProgress = false;
+      this.token = result;
     });
   }
 

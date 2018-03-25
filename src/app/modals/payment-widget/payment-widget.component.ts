@@ -62,7 +62,7 @@ export class PaymentWidgetComponent {
         if (error) {
           console.log('Something is wrong:', error);
         } else {
-            this.dialogRef.close();
+            this.dialogRef.close(token);
             console.log('Success!', token);
         }
     }

@@ -1,3 +1,4 @@
 <div class="container">
-    <button mat-raised-button color="primary" (click)="openPaymentDialog()">Pay</button>
+    <button mat-button color="primary" [disabled]="inProgress" (click)="openPaymentDialog()">Pay with Card</button>
+    <div *ngIf="token">Token {{token?.id}} generated for payment</div>
 </div>
