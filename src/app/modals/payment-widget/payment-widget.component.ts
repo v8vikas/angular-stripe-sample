@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, ElementRef, ViewChild} from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { MatDialogRef } from '@angular/material';
 
 declare var stripe: any;
 declare var elements: any;
@@ -17,7 +18,10 @@ export class PaymentWidgetComponent {
     cardHandler = this.onChange.bind(this);
     error: string;
 
-    constructor(private cd: ChangeDetectorRef) {}
+    constructor(
+        private cd: ChangeDetectorRef,
+        public dialogRef: MatDialogRef<PaymentWidgetComponent>
+    ) {}
 
     ngAfterViewInit() {
         const style = {
@@ -45,9 +49,9 @@ export class PaymentWidgetComponent {
 
     onChange({ error }) {
         if (error) {
-          this.error = error.message;
+            this.error = error.message;
         } else {
-          this.error = null;
+            this.error = null;
         }
         this.cd.detectChanges();
     }
@@ -58,8 +62,8 @@ export class PaymentWidgetComponent {
         if (error) {
           console.log('Something is wrong:', error);
         } else {
-          console.log('Success!', token);
-          // ...send the token to the your backend to process the charge
+            this.dialogRef.close();
+            console.log('Success!', token);
         }
     }
 
